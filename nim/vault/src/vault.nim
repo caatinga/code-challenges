@@ -34,6 +34,10 @@ type
 when isMainModule:
   echo welcome
 
+  var
+    activated_vault: Option[Vault]
+    activated_vault_file: string
+
   while true:
     echo options
     case readLine(stdin)
@@ -61,4 +65,29 @@ when isMainModule:
       var toml_vault = Toml.encode(Vault(master_password: master_hashed_password))
       writeFile(filename, toml_vault)
       echo "New vault created and saved as: ", filename
+
+    of "2":
+      var 
+        vault_file: Vault
+        vault_name: string
+        password: string
+        filename: string
+        password_checked: bool
+
+      echo "Enter vault name:"
+      discard readLine(stdin, vault_name)
+
+      filename = &"{mainVault}{vault_name}.vvv"
+      if not fileExists(Path(filename)):
+        echo &"{filename} not found"
+        continue
+
+      vault_file = Toml.loadFile(filename, Vault)
+      while not password.isValidPassword(vault_file.master_password):
+        let prompt = &"Enter a password for {vault_name} vault: "
+        discard readPasswordFromStdin(prompt, password)
+
+      activated_vault = some(vault_file)
+      activated_vault_file = filename
+      echo "Thank you, you are now signed in..."
 
