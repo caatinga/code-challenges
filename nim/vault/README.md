@@ -8,15 +8,15 @@ Building a cli version of a password manager
 4. Retrieve a password record and the associated password from a vault.
 
 ```toml
-salt = "RUST"
+[[records]]
+  name = "google account"
+  username = "my@email.com"
+  password = "ohmygoshmypwd"
 
-[[vault]]
-name = "github"
-username = "caatinga"
-password = "crypto"
+[[records]]
+  name = "github"
+  username = "lolzinnho"
+  password = "maoeu"
 
-[[vault]]
-name = "gmail"
-username = "caatinga@email.com"
-password = "crypto"
+master_password = "$pbkdf2_sha256$10199$zrRIPBmBnpzgBcoZXfFi7A$EORf49mr+1nqF/s0gmSm5NqRmFDFOgPmUruHDtPATrU"
 ```
