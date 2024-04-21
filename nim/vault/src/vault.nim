@@ -72,7 +72,6 @@ when isMainModule:
         vault_name: string
         password: string
         filename: string
-        password_checked: bool
 
       echo "Enter vault name:"
       discard readLine(stdin, vault_name)
@@ -91,3 +90,27 @@ when isMainModule:
       activated_vault_file = filename
       echo "Thank you, you are now signed in..."
 
+    of "3":
+      var
+        name: string
+        username: string
+        password: string
+
+      if activated_vault.isNone():
+        echo "Please, sign in to a vault"
+        continue
+
+      echo "Record name:"
+      discard readLine(stdin, name)
+
+      echo "Username:"
+      discard readLine(stdin, username)
+
+      discard readPasswordFromStdin("Password: ", password)
+
+      let new_record = Record(name: name, username: username, password: password)
+      var vault = activated_vault.get()
+      vault.records.add(new_record)
+
+      writeFile(activated_vault_file, Toml.encode(vault))
+      echo "saved!"
