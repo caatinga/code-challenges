@@ -1,4 +1,10 @@
+*
+!*.*
+!*/
+
 nimcache/
 nimblecache/
 htmldocs/
 nimbledeps/pkgs2/
+
+data/
