@@ -13,6 +13,9 @@ const options: string = """
 What would you like to do?
 
 1. Create a new password vault?
+2. Sign in to a password vault
+3. Add a password to a vault
+4. Fetch a password from a vault
 
 Quit (enter q or quit)
 """
