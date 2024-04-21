@@ -12,11 +12,11 @@ salt = "RUST"
 
 [[vault]]
 name = "github"
-username = "marioidival"
+username = "caatinga"
 password = "crypto"
 
 [[vault]]
 name = "gmail"
-username = "marioidival@email.com"
+username = "caatinga@email.com"
 password = "crypto"
 ```
