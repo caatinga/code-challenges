@@ -1,7 +1,7 @@
 # This is just an example to get you started. A typical binary package
 # uses this file as the main entry point of the application.
 
-import std/[files, paths, terminal, strformat]
+import std/[files, paths, terminal, strformat, sequtils]
 import toml_serialization
 import nimword
 
@@ -114,3 +114,31 @@ when isMainModule:
 
       writeFile(activated_vault_file, Toml.encode(vault))
       echo "saved!"
+
+    of "4":
+      if activated_vault.isNone():
+        echo "Please, sign in to a vault"
+        continue
+
+      var
+        record_name: string
+        vault = activated_vault.get()
+
+      echo "Fetching password"
+      echo "Please enter the record name:"
+      discard readLine(stdin, record_name)
+
+      let
+        found = filter(
+          vault.records,
+          proc(r: Record): bool = r.name == record_name
+        )
+
+      if len(found) == 0:
+        echo &"Record {record_name} not found"
+        continue
+
+      echo ""
+      echo &"For {record_name} record"
+      echo &"The username is {found[0].username}"
+      echo &"The password is {found[0].password}"
